@@ -1,5 +1,31 @@
 # MAT: Mask-Aware Transformer for Large Hole Image Inpainting (CVPR 2022 Best Paper Finalist, Oral)
 
+
+#### Simple run
+
+Steps:
+1. Place data in `data/`. enter the exact location in `script_pad512.py`
+2. run `script_pad512.py` with `--preprocess` flag. It will store the processed files in `test-sets/Places/` and `test-sets/Masks/`.
+3. run `generate_image.py`. Provide correct location in `--network` argument. (download the file from github repo). It will inpaint all images in  `test-sets/Places/`.
+4. This will store the inpainted samples in `samples/`
+5. run `script_pad512.py` with `--postprocess` flag. It will remove the padding added in preprocessing.
+
+```
+conda activate mat
+#python script_multiplymask.py
+python script_pad512.py  --data NKSR_MnCAV_v2 --delay 0.7
+
+python generate_image.py --network pretrained/Places_512_FullData.pkl --dpath test_sets/Places/images --mpath test_sets/Places/masks --outdir samples --resolution 2048
+```
+generate_image works on images and masks in test_sets/Places/images and masks
+enter the correct resolution (enter resolution as 1024 for all images regardless of size.)
+
+delete all test_images before staring
+
+```
+rm test_sets/Places/masks/*;rm test_sets/Places/images/*;rm samples/*.png
+```
+
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/mat-mask-aware-transformer-for-large-hole/image-inpainting-on-places2-1)](https://paperswithcode.com/sota/image-inpainting-on-places2-1?p=mat-mask-aware-transformer-for-large-hole)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/mat-mask-aware-transformer-for-large-hole/image-inpainting-on-celeba-hq)](https://paperswithcode.com/sota/image-inpainting-on-celeba-hq?p=mat-mask-aware-transformer-for-large-hole)
 
